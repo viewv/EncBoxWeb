@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: EncBox-Web
+
+# eureka
+eureka:
+  client:
+    enabled: false
+
+# gzip
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 1024
