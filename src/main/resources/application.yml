@@ -1,15 +1,21 @@
 spring:
   application:
     name: EncBox-Web
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2048MB
+      max-request-size: 10240MB
 
-# eureka
 eureka:
   client:
     enabled: false
 
-# gzip
 server:
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
     min-response-size: 1024
+  tomcat:
+    uri-encoding: utf-8
+  port: 8080
