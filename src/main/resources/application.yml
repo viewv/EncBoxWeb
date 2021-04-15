@@ -1,3 +1,12 @@
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 1024
+  tomcat:
+    uri-encoding: utf-8
+  port: 8080
+
 spring:
   application:
     name: EncBox-Web
@@ -10,12 +19,3 @@ spring:
 eureka:
   client:
     enabled: false
-
-server:
-  compression:
-    enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
-    min-response-size: 1024
-  tomcat:
-    uri-encoding: utf-8
-  port: 8080
