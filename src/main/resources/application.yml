@@ -12,7 +12,7 @@ spring:
     name: EncBox-Web
   servlet:
     multipart:
-      enabled: true
+      enabled: false
       max-file-size: 2048MB
       max-request-size: 10240MB
 
