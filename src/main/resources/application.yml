@@ -15,6 +15,13 @@ spring:
       enabled: false
       max-file-size: 2048MB
       max-request-size: 10240MB
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:filename.db
+  jpa:
+    hibernate:
+      ddl-auto: update # TODO: change it into create
+    show-sql: true
 
 eureka:
   client:
