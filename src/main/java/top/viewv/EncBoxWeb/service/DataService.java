@@ -14,4 +14,17 @@ public class DataService {
         FilenameEntity filenameEntity = filenameRepository.findFilenameEntityByFilenameuuid(filenameuuid);
         return filenameEntity.getFilename();
     }
+
+    public boolean addFile(String filename, String filenameuuid){
+        FilenameEntity filenameEntity = new FilenameEntity();
+        filenameEntity.setFilename(filename);
+        filenameEntity.setFilenameuuid(filenameuuid);
+        try {
+           filenameRepository.save(filenameEntity);
+           return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

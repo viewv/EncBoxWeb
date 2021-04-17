@@ -1,8 +1,11 @@
 package top.viewv.EncBoxWeb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.viewv.EncBoxWeb.entity.ProgressEntity;
+import top.viewv.EncBoxWeb.service.DataService;
+import top.viewv.EncBoxWeb.utils.FilenameUUID;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -13,6 +16,9 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class UploadController {
+
+    @Autowired
+    private DataService dataService;
 
     /*
      * 文件上传
@@ -28,9 +34,15 @@ public class UploadController {
         if (file != null && !file.isEmpty()){
             try {
                 System.out.println(System.getProperty("user.dir"));
-                file.transferTo(new File(file.getOriginalFilename()));
+                String filename = file.getOriginalFilename();
+                String filenameuuid = FilenameUUID.getRandomname(filename);
+                dataService.addFile(filename,filenameuuid);
+
+                file.transferTo(new File(filenameuuid));
+
                 result.put("code", 200);
                 result.put("msg", "success");
+                // TODO return file url and filename
             } catch (IOException e) {
                 result.put("code", -1);
                 result.put("msg", "文件上传出错，请重新上传！");
