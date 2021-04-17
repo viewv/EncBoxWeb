@@ -1,6 +1,11 @@
 package top.viewv.EncBoxWeb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.viewv.EncBoxWeb.entity.ProgressEntity;
@@ -9,13 +14,14 @@ import top.viewv.EncBoxWeb.utils.FilenameUUID;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @CrossOrigin
-public class UploadController {
+public class FileController {
 
     @Autowired
     private DataService dataService;
@@ -64,5 +70,21 @@ public class UploadController {
     @ResponseBody
     public ProgressEntity getUploadProgress(HttpServletRequest request){
         return (ProgressEntity) request.getSession().getAttribute("uploadStatus");
+    }
+
+    @RequestMapping(path = "download", method = RequestMethod.GET)
+    public ResponseEntity<Resource> download(String filenameuuid) throws IOException {
+        String filename = dataService.getFilenameByFilenameuuid(filenameuuid);
+        File file = new File(filename);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename="+filename);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 }
