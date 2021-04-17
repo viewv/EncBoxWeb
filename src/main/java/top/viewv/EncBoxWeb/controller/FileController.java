@@ -72,6 +72,12 @@ public class FileController {
         return (ProgressEntity) request.getSession().getAttribute("uploadStatus");
     }
 
+    /**
+     * 文件下载
+     * @param filenameuuid
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(path = "download", method = RequestMethod.GET)
     public ResponseEntity<Resource> download(String filenameuuid) throws IOException {
         String filename = dataService.getFilenameByFilenameuuid(filenameuuid);

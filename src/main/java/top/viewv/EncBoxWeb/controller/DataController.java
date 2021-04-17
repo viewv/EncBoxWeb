@@ -11,7 +11,7 @@ public class DataController {
     @Autowired
     private DataService dataService;
 
-    @GetMapping("/getfilename")
+    @GetMapping("getfilename")
     public @ResponseBody String getFilenameByFilenameuuid(String filenameuuid){
         return dataService.getFilenameByFilenameuuid(filenameuuid);
     }
