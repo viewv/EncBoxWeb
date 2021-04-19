@@ -11,13 +11,15 @@ import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Decrypt {
 
     public static final int EOF = -1;
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
-    public void decrypt(String sourcefile, String destfilepath, String password) throws InvalidKeyException, IOException, NoSuchAlgorithmException, NoSuchProviderException,
+    public Map<String,String> decrypt(String sourcefile, String password) throws InvalidKeyException, IOException, NoSuchAlgorithmException, NoSuchProviderException,
             NoSuchPaddingException, InvalidAlgorithmParameterException {
         Security.addProvider(new BouncyCastleProvider());
 
@@ -128,7 +130,7 @@ public class Decrypt {
 
             String filename = new String(filenameBytes, StandardCharsets.UTF_8);
 
-            OutputStream out = new FileOutputStream(destfilepath + File.separator + filename);
+            OutputStream out = new FileOutputStream(sourcefile + "dec");
 
             long count = 0;
             int n;
@@ -142,6 +144,12 @@ public class Decrypt {
             is.close();
             out.close();
             body.close();
+
+            Map<String, String> result = new HashMap<>();
+
+            result.put("filename",filename);
+
+            return result;
 
         }catch (NegativeArraySizeException e){
             e.printStackTrace();

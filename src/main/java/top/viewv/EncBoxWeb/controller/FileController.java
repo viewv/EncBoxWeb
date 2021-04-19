@@ -80,8 +80,9 @@ public class FileController {
      */
     @RequestMapping(path = "download", method = RequestMethod.GET)
     public ResponseEntity<Resource> download(String filenameuuid) throws IOException {
+        // TODO fix file download problem maybe just do not check the original filename?
         String filename = dataService.getFilenameByFilenameuuid(filenameuuid);
-        File file = new File(filename);
+        File file = new File(filenameuuid);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
         HttpHeaders headers = new HttpHeaders();

@@ -34,4 +34,5 @@ build/
 
 ### Database ###
 *.db
+testuuid.txtenc
 testname.txt
