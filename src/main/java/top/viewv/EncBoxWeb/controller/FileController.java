@@ -48,15 +48,18 @@ public class FileController {
 
                 result.put("code", 200);
                 result.put("msg", "success");
+                result.put("uuid",filenameuuid);
                 // TODO return file url and filename
             } catch (IOException e) {
                 result.put("code", -1);
                 result.put("msg", "文件上传出错，请重新上传！");
+                result.put("uuid",null);
                 e.printStackTrace();
             }
         } else {
             result.put("code", -1);
             result.put("msg", "未获取到有效的文件信息，请重新上传!");
+            result.put("uuid",null);
         }
         return result;
     }

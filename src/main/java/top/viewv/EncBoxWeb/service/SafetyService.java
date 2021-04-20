@@ -39,7 +39,11 @@ public class SafetyService {
         File file = new File(filenameuuid);
         file.delete();
 
-        return filenameuuid + "enc";
+        File newfile = new File(filenameuuid+"enc");
+        file = new File(filenameuuid);
+        newfile.renameTo(file);
+
+        return filenameuuid;
     }
 
     public String symmetricDecrypt(String filenameuuid, String password) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IOException, NoSuchProviderException, InvalidKeyException {
