@@ -83,7 +83,6 @@ public class FileController {
      */
     @RequestMapping(path = "download", method = RequestMethod.GET)
     public ResponseEntity<Resource> download(String filenameuuid) throws IOException {
-        // TODO fix file download problem maybe just do not check the original filename?
         String filename = dataService.getFilenameByFilenameuuid(filenameuuid);
         File file = new File(filenameuuid);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
@@ -97,4 +96,26 @@ public class FileController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
+
+    /**
+     * uuid文件下载
+     * @param filenameuuid
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(path = "downloaduuid", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloaduuid(String filenameuuid) throws IOException {
+        File file = new File(filenameuuid);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename="+filenameuuid);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
 }
