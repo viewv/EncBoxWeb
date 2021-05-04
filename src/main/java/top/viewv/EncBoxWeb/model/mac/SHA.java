@@ -45,6 +45,7 @@ public class SHA {
                 case "3/512":
                     hashSum = MessageDigest.getInstance("SHA3-512", "BC");
                     break;
+                case "256":
                 default:
                     hashSum = MessageDigest.getInstance("SHA-256", "BC");
                     break;
