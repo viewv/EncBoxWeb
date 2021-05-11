@@ -145,6 +145,11 @@ public class SafetyService {
                 hexString.append(tempHexString);
             }
 
+            File file = new File(filenameuuid);
+            file.delete();
+
+            dataService.deleteFileuuid(filenameuuid);
+
             return hexString.toString();
 
         } catch (IOException e) {

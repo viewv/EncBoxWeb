@@ -27,4 +27,8 @@ public class DataService {
             return false;
         }
     }
+
+    public void deleteFileuuid(String filenameuuid){
+        filenameRepository.deleteFilenameEntityByFilenameuuid(filenameuuid);
+    }
 }
